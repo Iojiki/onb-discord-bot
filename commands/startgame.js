@@ -1,6 +1,7 @@
 module.exports = (client, message) => {
-	const inputString = (client.content).substr((client.content).indexOf(' ') + 1);
+	let inputString = (client.content).substr((client.content).indexOf(' ') + 1);
 	let uniqueNumber = '0';
+	inputString = inputString.replace(/\s+/g, '-').toLowerCase();
 	let gameName = inputString;
 
 	if(inputString == 'startgame') {
