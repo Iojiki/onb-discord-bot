@@ -6,9 +6,7 @@ const client = new Discord.Client();
 
 // Event Handler for Commands and Events
 fs.readdir('./events/', (err, files) => {
-	console.log(files);
 	files.forEach(file => {
-		console.log(file);
 		const eventHandler = require('./events/' + file);
 		const eventName = file.split('.')[0];
 		client.on(eventName, (...args) => eventHandler(client, ...args));
