@@ -1,4 +1,4 @@
-module.exports = (client, message) => {
+module.exports = (client) => {
 	const inputString = (client.content).substr((client.content).indexOf(' ') + 1);
 	const guildChannels = client.guild.channels.cache;
 	const inputRoomCode = inputString.split('﹙').pop().split('﹚')[0];
@@ -7,6 +7,7 @@ module.exports = (client, message) => {
 		return client.channel.send('Please include a Valid Game Room Code');
 	}
 	else{
+		let isValidRoom = true;
 		guildChannels.forEach(channel => {
 			const channelRoomCode = (channel.name).split('﹙').pop().split('﹚')[0];
 			if (channelRoomCode == inputRoomCode) {
@@ -14,10 +15,13 @@ module.exports = (client, message) => {
 				channel.updateOverwrite(client.author.id, { VIEW_CHANNEL: true });
 			}
 			else{
-				console.log('No');
+				isValidRoom = false;
 			}
 
 		});
+		if (isValidRoom == false) {
+			return client.channel.send('This is not a valid Game Room Code');
+		}
 	}
 
 };

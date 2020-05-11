@@ -4,7 +4,6 @@ module.exports = (client, message) => {
 	inputString = inputString.replace(/\s+/g, '-').toLowerCase();
 	const randomString = Math.random().toString(36).substring(2, 6) + Math.random().toString(10).substring(2, 6);
 	let gameName = inputString + '﹙' + randomString + '﹚';
-	console.log(gameName);
 
 	if(inputString == '/startgame') {
 		return client.channel.send('Please include a Game Name in the format "startgame [game name]"');
