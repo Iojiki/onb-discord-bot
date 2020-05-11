@@ -2,7 +2,7 @@
 const kick = require('../commands/kick.js');
 module.exports = (client, message) => {
 
-	if (message.content.startsWith('kick')) {
+	if (message.content.startsWith('/kick')) {
 		return kick(message, client);
 	}
 };
@@ -11,7 +11,16 @@ module.exports = (client, message) => {
 const startgame = require('../commands/startgame.js');
 module.exports = (client, message) => {
 
-	if (message.content.startsWith('startgame')) {
+	if (message.content.startsWith('/startgame')) {
 		return startgame(message, client);
+	}
+};
+
+// JOin Game Event = Message Handler
+const joingame = require('../commands/joingame.js');
+
+module.exports = (client, message) => {
+	if (message.content.startsWith('/joingame')) {
+		return joingame(message, client);
 	}
 };
