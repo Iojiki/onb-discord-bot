@@ -12,18 +12,49 @@ module.exports = (client, message) => {
 			uniqueNumber = (parseInt(uniqueNumber, 10) + 1).toString();
 			gameName = inputString + '-' + uniqueNumber;
 		}
-		startIt();
+		createTextChannel();
+		createVoiceChannel();
+
 	}
 	else{
-		startIt();
+		createTextChannel();
+		createVoiceChannel();
 	}
 
 	// Functions
-	function startIt() {
-
-		client.guild.channels.create(gameName, 'text')
+	function createTextChannel() {
+		// Create Text Channel
+		client.guild.channels.create(gameName, {
+			type: 'text',
+		})
 			.then(channel => {
-				const category = client.guild.channels.cache.find(c => c.name == 'Games in Progress' && c.type == 'category');
+				const category = client.guild.channels.cache.find(c => c.name == 'Games in Progress Text' && c.type == 'category');
+				channel.setParent(category.id);
+				channel.overwritePermissions([
+					{
+						// Everyone Role
+						id: client.guild.roles.everyone.id,
+						deny: ['VIEW_CHANNEL'],
+					},
+					{
+						// Bot Permissions
+						id: message.user.id,
+						allow: ['VIEW_CHANNEL'],
+					},
+					{
+						// Person Using the Command
+						id: client.author.id,
+						allow: ['VIEW_CHANNEL'],
+					},
+				]);
+			});
+	}
+	function createVoiceChannel() {
+		client.guild.channels.create(gameName, {
+			type: 'voice',
+		})
+			.then(channel => {
+				const category = client.guild.channels.cache.find(c => c.name == 'Games in Progress Voice' && c.type == 'category');
 				channel.setParent(category.id);
 				channel.overwritePermissions([
 					{
